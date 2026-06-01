@@ -20,7 +20,7 @@ for stock, com_name in zip(tech_list, company_name):
     df_stock = yf.download(stock, start=start, end=end)
 
     if not df_stock.empty:
-        # 🔥 核心修正：把多重索引扁平化，防止欄位變成 NaN 錯位
+        # 多重索引扁平化，防止欄位變成 NaN 錯位
         if isinstance(df_stock.columns, pd.MultiIndex):
             df_stock.columns = df_stock.columns.get_level_values(0)
 
@@ -45,7 +45,7 @@ if company_list:
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    # 自動匯出成 CSV 與 Excel 檔（期末加分亮點！）
+    # 自動匯出成 CSV 與 Excel 檔
     df.to_csv(os.path.join(output_dir, "tech_stocks_final.csv"), index=False)
     print(f"👉 成果 1：已成功匯出 CSV 檔至 {output_dir}\\tech_stocks_final.csv")
 
